@@ -1,0 +1,52 @@
+name: Publish Test Image
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    name: Build and publish test image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install BlueBuild
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --pull always --rm ghcr.io/blue-build/cli:latest-installer | sudo bash
+          bluebuild --version
+
+      - name: Set temporary test image tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          sed -i 's/^image-version: .*/image-version: first-build-test/' recipes/recipe.yml
+          grep '^image-version:' recipes/recipe.yml
+
+      - name: Build and push test image
+        shell: bash
+        env:
+          BB_USERNAME: ${{ github.actor }}
+          BB_PASSWORD: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          bluebuild build \
+            --push \
+            --no-sign \
+            --registry ghcr.io \
+            --registry-namespace moonlightgz \
+            recipes/recipe.yml
+
+      - name: Verify published image
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker manifest inspect ghcr.io/moonlightgz/moonlightos:first-build-test >/dev/null
+          echo "Published ghcr.io/moonlightgz/moonlightos:first-build-test"
