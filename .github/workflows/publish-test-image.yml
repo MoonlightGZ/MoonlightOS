@@ -20,8 +20,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y buildah
           docker run --pull always --rm ghcr.io/blue-build/cli:latest-installer | sudo bash
           bluebuild --version
+          buildah --version
 
       - name: Generate unsigned test Containerfile
         shell: bash
@@ -49,13 +52,14 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-          docker buildx build \
-            --push \
-            --platform linux/amd64 \
+          buildah login ghcr.io -u "${{ github.actor }}" --password "${GITHUB_TOKEN}"
+          buildah bud \
+            --squash \
+            --format oci \
             --tag ghcr.io/moonlightgz/moonlightos:first-build-test \
             --file Containerfile.unsigned \
             .
+          buildah push ghcr.io/moonlightgz/moonlightos:first-build-test
 
       - name: Verify published image
         shell: bash
