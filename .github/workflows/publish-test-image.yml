@@ -23,11 +23,30 @@ jobs:
           docker run --pull always --rm ghcr.io/blue-build/cli:latest-installer | sudo bash
           bluebuild --version
 
-      - name: Set temporary test image tag
+      - name: Set temporary output image tag
         shell: bash
         run: |
           set -euo pipefail
-          sed -i 's/^image-version: .*/image-version: first-build-test/' recipes/recipe.yml
+          python3 - <<'PY'
+          from pathlib import Path
+
+          recipe = Path("recipes/recipe.yml")
+          lines = recipe.read_text(encoding="utf-8").splitlines()
+          output = []
+          inserted = False
+
+          for line in lines:
+              if not inserted and line.startswith("base-image:"):
+                  output.extend(["alt-tags:", "  - first-build-test"])
+                  inserted = True
+              output.append(line)
+
+          if not inserted:
+              raise SystemExit("Could not find base-image in recipes/recipe.yml")
+
+          recipe.write_text("\n".join(output) + "\n", encoding="utf-8")
+          PY
+          grep -A2 '^alt-tags:' recipes/recipe.yml
           grep '^image-version:' recipes/recipe.yml
 
       - name: Build and push test image
