@@ -1,6 +1,5 @@
-# Workflows
+# GitHub Workflows
 
-This directory is reserved for future CI workflows.
+This directory contains continuous integration definitions for the repository.
 
-Alpha 0.1 does not enable automated image publishing yet because signing, registry ownership, and release policy still need to be decided.
-
+Image publishing should use signed artifacts and clearly versioned releases.

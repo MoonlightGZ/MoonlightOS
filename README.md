@@ -1,66 +1,68 @@
 # MoonlightOS
 
-MoonlightOS is a custom Linux operating system project based on Universal Blue and Bazzite Nvidia. The project goal is to provide a stable, rollback-safe, gaming-focused desktop image that is friendly to modern Nvidia hardware while staying minimal, open, and maintainable. A next-generation modern atomic Linux gaming and productivity OS powered by Universal Blue, Bazzite, COSMIC, and performance-focused optimizations.
+MoonlightOS is a next-generation, open-source Linux operating system project built on Universal Blue and Bazzite Nvidia. It is designed for users who want an atomic, rollback-safe desktop with a strong gaming foundation, reliable Nvidia support, and a minimal customization layer.
 
-Alpha 0.1 is intentionally conservative. It starts from Bazzite Nvidia, preserves the upstream gaming stack, and adds only the repository structure, build recipe, documentation, and release planning needed to begin development safely.
+## Project Goals
 
-## Goals
+- Provide an atomic desktop operating system with reliable rollback behavior.
+- Preserve the proven gaming foundation provided by Bazzite.
+- Support Steam, Proton, Vulkan, and modern Nvidia graphics stacks.
+- Keep the system image focused, auditable, and maintainable.
+- Favor upstream compatibility over unnecessary customization.
+- Build a transparent open-source project with clear public documentation.
 
-- Atomic and rollback-safe system updates
-- Gaming-focused desktop experience
-- Nvidia-friendly base image selection
-- Steam and Proton ready through Bazzite
-- Minimal bloat and small customization surface
-- Open source and easy to audit
-- Maintainable documentation-first workflow
+## Core Philosophy
 
-## Non-Goals for Alpha 0.1
+MoonlightOS should be stable before it is distinctive. The project starts from a trusted upstream base, keeps system-level changes small, and treats every addition to the host image as long-term maintenance surface.
 
-- No custom branding
-- No COSMIC desktop implementation
-- No broad package layering
-- No bootloader theming
-- No risky driver customization
+The operating system should remain easy to inspect, easy to update, and easy to roll back. Visual identity, desktop refinements, and optional features should never compromise reliability.
+
+## Technical Foundation
+
+- Base platform: Universal Blue
+- Gaming foundation: Bazzite Nvidia
+- Image definition: BlueBuild
+- Update model: atomic image-based updates
+- Application strategy: prefer Flatpak and user-space tooling where practical
+- Graphics target: modern Nvidia systems supported by the Bazzite Nvidia image family
+
+## Key Features
+
+- Atomic updates with rollback support
+- Gaming-oriented Linux desktop foundation
+- Steam and Proton readiness through Bazzite
+- Nvidia-friendly graphics stack
+- Minimal host-layer customization
+- Public documentation for architecture, build configuration, and validation
+
+## Long-Term Vision
+
+MoonlightOS aims to become a polished gaming and productivity operating system that remains close to reliable upstream components while offering a carefully curated experience. The project will grow through measured releases, documented technical decisions, and a strong bias toward stability.
+
+## High-Level Roadmap
+
+- Foundation: define the image recipe, repository structure, and public documentation.
+- Build pipeline: add reproducible builds, signing, and release artifacts.
+- Validation: publish boot, rollback, graphics, and gaming verification criteria.
+- User experience: refine defaults without adding unnecessary system weight.
+- Release readiness: document installation, updates, rollback, and support expectations.
 
 ## Repository Layout
 
 ```text
 .
-|-- .github/workflows/        # Future CI automation for image builds
-|-- assets/                   # Future project assets; no branding yet
-|-- docs/                     # Human-readable project documentation
-|-- files/                    # Files consumed by BlueBuild modules
-|-- recipes/                  # BlueBuild image recipes and recipe modules
-|-- scripts/                  # Host-side helper scripts
-|-- CODEX_INSTRUCTIONS.md     # Operating instructions for Codex work
-|-- CURRENT_STATUS.md         # Current project state and known limits
-|-- README.md                 # Project overview and entry point
-`-- ROADMAP.md                # Milestones and phased development plan
+|-- .github/workflows/        # Continuous integration definitions
+|-- assets/                   # Public project assets
+|-- docs/                     # Public project documentation
+|-- files/                    # Files consumed by image build modules
+|-- recipes/                  # BlueBuild image recipes and modules
+|-- scripts/                  # Project helper scripts
+|-- CURRENT_STATUS.md         # Public project status
+|-- LICENSE                   # Project license
+|-- README.md                 # Project overview
+`-- ROADMAP.md                # Public roadmap
 ```
-
-## Current Base
-
-The initial recipe uses `ghcr.io/ublue-os/bazzite-nvidia-open` as the base image. This targets newer Nvidia GPUs supported by the open kernel module path in Bazzite. Legacy Nvidia support can be added later as a separate recipe if needed.
-
-## Build Direction
-
-MoonlightOS should be built with BlueBuild. The initial recipe lives at:
-
-```text
-recipes/recipe.yml
-```
-
-Local build commands will be finalized after the first CI and signing pass. Until then, recipe changes should be reviewed carefully and tested in disposable environments before rebasing a daily-use system.
-
-## Documentation
-
-Project documentation is split by audience:
-
-- `docs/` for normal repository documentation.
-- `D:\Obsidian\MoonlightOS` for private Obsidian planning notes, architecture drafts, research, release planning, and hardware testing notes.
-
-Private Obsidian vault content should not be committed to this repository.
 
 ## Status
 
-See `CURRENT_STATUS.md` for the active state of the project.
+See `CURRENT_STATUS.md` for the current public project status.

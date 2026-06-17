@@ -1,47 +1,37 @@
 # Current Status
 
-Date: 2026-06-16
+MoonlightOS is in early public foundation work.
 
-MoonlightOS is at the Alpha 0.1 foundation stage.
+## Available
 
-## Completed
+- Public project overview and roadmap.
+- Initial BlueBuild recipe based on Bazzite Nvidia.
+- Repository structure for recipes, image files, scripts, assets, and documentation.
+- Public architecture, build, and validation documentation.
 
-- Repository directory structure created.
-- Core project documents created.
-- Obsidian planning notes moved to `D:\Obsidian\MoonlightOS`.
-- Initial BlueBuild recipe added under `recipes/recipe.yml`.
-- Initial build-time metadata script added under `files/scripts`.
-
-## Current Technical Direction
+## Technical Base
 
 - Base image: `ghcr.io/ublue-os/bazzite-nvidia-open`
 - Image version: `latest`
-- Primary target: modern Nvidia desktop and laptop gaming systems.
-- Build system: BlueBuild.
-- Desktop direction: inherit Bazzite default for now.
+- Build system: BlueBuild
+- Update model: atomic image-based updates
+- Gaming foundation: Bazzite
 
-## Not Implemented Yet
+## In Progress
 
-- Branding.
-- COSMIC desktop.
-- Image signing.
-- CI build automation.
-- ISO generation.
-- Legacy Nvidia image variant.
-- Release artifacts.
-- Hardware compatibility matrix.
+- Reproducible build automation.
+- Image signing and release artifact policy.
+- Public validation criteria for boot, rollback, Steam, Proton, Vulkan, and Nvidia behavior.
+- Installation, update, and recovery documentation.
 
-## Known Risks
+## Not Yet Available
 
-- `latest` tracks upstream Bazzite and can inherit upstream changes quickly.
-- Nvidia support depends on Bazzite and upstream Nvidia driver behavior.
-- The recipe has not yet been built in CI.
-- Rebase instructions are not finalized for end users.
+- Published release images.
+- Signed public release artifacts.
+- Installation images.
+- Stable release channel.
+- Formal compatibility matrix.
 
-## Next Actions
+## Project Stance
 
-1. Validate the BlueBuild recipe locally.
-2. Add CI build workflow.
-3. Decide image signing process.
-4. Create a minimal hardware and smoke-test matrix.
-5. Document safe rebase and rollback procedures.
+MoonlightOS is not yet recommended for production or daily-driver use. Early adopters should expect breaking changes until signed release artifacts, validation criteria, and upgrade documentation are published.

@@ -1,34 +1,26 @@
-# BlueBuild Notes
+# BlueBuild
 
-MoonlightOS uses BlueBuild to define a bootable container image.
+MoonlightOS uses BlueBuild to define its image configuration.
 
 ## Recipe
 
-The initial recipe is:
+The primary recipe is:
 
 ```text
 recipes/recipe.yml
 ```
 
-It uses:
+The recipe starts from:
 
 ```text
 base-image: ghcr.io/ublue-os/bazzite-nvidia-open
 image-version: latest
 ```
 
-## Alpha 0.1 Build Policy
+## Image Policy
 
 - Keep the recipe close to upstream Bazzite Nvidia.
-- Prefer comments and documentation over custom behavior.
-- Add packages only after confirming Bazzite does not already provide the capability.
-- Treat every host package as long-term maintenance surface.
-
-## Future Work
-
-- Add CI builds.
-- Add image signing.
-- Add release tags.
-- Add rollback and rebase documentation.
-- Add local smoke-test instructions.
-
+- Add host packages only when they provide clear system-level value.
+- Prefer Flatpak or user-space tools for applications that do not need to be part of the base image.
+- Keep image changes small enough to review and audit.
+- Preserve rollback and rebase safety.

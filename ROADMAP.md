@@ -1,71 +1,45 @@
 # MoonlightOS Roadmap
 
-This roadmap favors stability before customization. MoonlightOS should become useful by staying close to reliable upstream components first, then layering project-specific behavior only where it clearly improves the gaming desktop experience.
+MoonlightOS follows a stability-first roadmap. Each phase should improve the operating system without weakening the atomic update model, rollback behavior, or upstream compatibility.
 
-## Alpha 0.1 - Foundation
+## Foundation
 
-Status: In progress
+- Maintain a clear BlueBuild image definition.
+- Document the technical base and repository structure.
+- Keep host-layer customizations minimal and auditable.
+- Track public status and project direction.
 
-Goals:
+## Build and Release
 
-- Create repository structure.
-- Create project documentation.
-- Create Obsidian planning vault.
-- Add initial BlueBuild recipe based on Bazzite Nvidia.
-- Preserve upstream Bazzite gaming and Nvidia behavior.
-- Avoid branding, custom desktop work, and broad package changes.
+- Add reproducible image builds.
+- Add signed release artifacts.
+- Publish release notes for image changes.
+- Define versioning and support expectations.
 
-Exit criteria:
+## Validation
 
-- Recipe parses under BlueBuild.
-- Documentation explains current scope and limitations.
-- Project has a clear test checklist.
-- No custom branding has been introduced.
-- No COSMIC work has been introduced.
+- Publish boot and rollback verification criteria.
+- Validate Steam, Proton, Vulkan, and Nvidia graphics behavior.
+- Track compatibility expectations for supported devices.
+- Add regression checks for update, login, display, audio, and network behavior.
 
-## Alpha 0.2 - Build and Validation
+## User Experience
 
-Goals:
+- Refine defaults that improve gaming and desktop usability.
+- Prefer user-space applications over host image changes when possible.
+- Keep bundled components focused and justified.
+- Avoid unnecessary visual or system-level customization.
 
-- Add GitHub Actions or equivalent CI for BlueBuild image builds.
-- Add image signing plan.
-- Add local build and rebase instructions.
-- Test boot, rollback, Steam launch, Proton compatibility basics, and Nvidia driver visibility.
-- Define supported hardware expectations.
+## Release Readiness
 
-## Alpha 0.3 - Minimal User Experience Layer
+- Document installation and update paths.
+- Document rollback and recovery procedures.
+- Establish support channels and contribution guidelines.
+- Prepare stable public releases with clear changelogs.
 
-Goals:
+## Long-Term Direction
 
-- Decide default desktop variant strategy.
-- Add only essential host packages not already provided by Bazzite.
-- Document Flatpak policy.
-- Document update and rollback user flows.
-- Start first usability pass without custom branding.
-
-## Alpha 0.4 - Installer and Recovery Planning
-
-Goals:
-
-- Document install paths.
-- Add recovery procedures.
-- Add rollback verification notes.
-- Define release artifact strategy.
-- Decide whether legacy Nvidia should be a separate image.
-
-## Beta 0.5 - Identity and Desktop Direction
-
-Goals:
-
-- Introduce branding only after the technical foundation is stable.
-- Evaluate COSMIC separately from the base image.
-- Add design guidelines.
-- Expand test matrix.
-
-## Release Principles
-
-- Prefer upstream Bazzite defaults unless there is a clear MoonlightOS reason to change them.
-- Keep each recipe change reviewable.
-- Avoid host-level customization when Flatpak, container, or user-level configuration is sufficient.
-- Never trade rollback reliability for visual customization.
-
+- Maintain a reliable gaming-focused desktop.
+- Expand compatibility through measured image variants only when needed.
+- Continue aligning with Universal Blue and Bazzite where their defaults serve the project well.
+- Add project identity and polish only after the technical base is dependable.

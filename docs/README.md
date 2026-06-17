@@ -1,10 +1,9 @@
 # MoonlightOS Documentation
 
-This directory contains project documentation that should be readable without Obsidian.
+This directory contains public project documentation for MoonlightOS.
 
 ## Structure
 
 - `architecture/` explains system design choices.
-- `build/` documents build and release workflows.
-- `testing/` documents validation plans.
-- `PRIVATE_PLANNING.md` explains where private Obsidian planning lives.
+- `build/` documents image build configuration.
+- `testing/` documents validation criteria.

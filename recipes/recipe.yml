@@ -3,20 +3,17 @@
 
 name: moonlightos
 version: 1
-description: MoonlightOS Alpha 0.1 foundation image based on Bazzite Nvidia.
+description: MoonlightOS image based on Bazzite Nvidia.
 base-image: ghcr.io/ublue-os/bazzite-nvidia-open
 image-version: latest
-
-alt-tags:
-  - alpha-0.1
 
 platforms:
   - linux/amd64
 
 labels:
   org.opencontainers.image.title: MoonlightOS
-  org.opencontainers.image.description: Alpha 0.1 foundation image based on Bazzite Nvidia.
-  org.opencontainers.image.source: https://github.com/OWNER/MoonlightOS
+  org.opencontainers.image.description: Gaming-focused atomic Linux image based on Bazzite Nvidia.
+  org.opencontainers.image.licenses: MIT
 
 modules:
-  - from-file: modules/alpha-foundation.yml
+  - from-file: modules/foundation.yml

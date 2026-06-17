@@ -1,13 +1,5 @@
 # Scripts
 
-This directory is reserved for host-side helper scripts.
+This directory contains project helper scripts.
 
-Examples of future scripts:
-
-- Local recipe validation.
-- Build wrappers.
-- Release checks.
-- Test log collection.
-
-Scripts in this directory are not automatically included in the image. Files that BlueBuild should consume belong under `files/`.
-
+Scripts here are intended for repository tasks such as validation, release checks, and build support. Files consumed by the image build belong under `files/`.
