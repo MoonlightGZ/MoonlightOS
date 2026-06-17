@@ -23,45 +23,39 @@ jobs:
           docker run --pull always --rm ghcr.io/blue-build/cli:latest-installer | sudo bash
           bluebuild --version
 
-      - name: Set temporary output image tag
+      - name: Generate unsigned test Containerfile
         shell: bash
         run: |
           set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-
-          recipe = Path("recipes/recipe.yml")
-          lines = recipe.read_text(encoding="utf-8").splitlines()
-          output = []
-          inserted = False
-
-          for line in lines:
-              if not inserted and line.startswith("base-image:"):
-                  output.extend(["alt-tags:", "  - first-build-test"])
-                  inserted = True
-              output.append(line)
-
-          if not inserted:
-              raise SystemExit("Could not find base-image in recipes/recipe.yml")
-
-          recipe.write_text("\n".join(output) + "\n", encoding="utf-8")
-          PY
-          grep -A2 '^alt-tags:' recipes/recipe.yml
+          bluebuild generate recipes/recipe.yml -o Containerfile
+          awk 'BEGIN { skip=0 }
+            /^# Key RUN$/ {
+              print "# Key RUN skipped for unsigned temporary test image"
+              skip=1
+              next
+            }
+            /^# Bin RUN$/ {
+              skip=0
+              print
+              next
+            }
+            skip==0 { print }
+          ' Containerfile > Containerfile.unsigned
           grep '^image-version:' recipes/recipe.yml
 
       - name: Build and push test image
         shell: bash
         env:
-          BB_USERNAME: ${{ github.actor }}
-          BB_PASSWORD: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          bluebuild build \
+          echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          docker buildx build \
             --push \
-            --no-sign \
-            --registry ghcr.io \
-            --registry-namespace moonlightgz \
-            recipes/recipe.yml
+            --platform linux/amd64 \
+            --tag ghcr.io/moonlightgz/moonlightos:first-build-test \
+            --file Containerfile.unsigned \
+            .
 
       - name: Verify published image
         shell: bash
